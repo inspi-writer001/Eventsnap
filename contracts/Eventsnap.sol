@@ -3,14 +3,14 @@
 pragma solidity >=0.8.2 <0.9.0;
 
 contract EventSnap {
-    // Each individual image entry
+    
     struct UploadedImage {
         string url;    
         string tag;    
         address uploader;
     }
 
-    // Per-user event data
+
     struct IImage {
         string uploader_selfie;  
         bool is_joined;
@@ -19,8 +19,8 @@ contract EventSnap {
 
     struct IEvent {
         string name;
-        string banner; // IPFS or any URL for the event banner
-        address owner; // The event creator
+        string banner; 
+        address owner; 
         address[] attendees;
         mapping(address => IImage) uploads; // Tracks each user's images
     }
@@ -40,7 +40,7 @@ contract EventSnap {
         owner = msg.sender;
     }
 
-    // 1. Create a new event
+    
     function createEvent(string memory _name, string memory _banner) public {
         eventCount++;
         IEvent storage newEvt = events[eventCount];
@@ -49,7 +49,7 @@ contract EventSnap {
         newEvt.owner = msg.sender;
     }
 
-    // 2. Join an event with a selfie
+    
     function joinEvent(uint256 eventId, string memory _uploader_selfie) public {
         require(eventId > 0 && eventId <= eventCount, "Invalid event ID");
 
@@ -60,12 +60,12 @@ contract EventSnap {
         userData.uploader_selfie = _uploader_selfie;
         userData.is_joined = true;
 
-        // Add this user to the attendees array
+        
         evt.attendees.push(msg.sender);
         attendeesList[eventId].push(msg.sender);
     }
 
-    // 3. Upload an image with a tag
+    
     function uploadImageWithTag(
         uint256 eventId, 
         string memory imageUrl, 
@@ -77,7 +77,7 @@ contract EventSnap {
         IImage storage userData = evt.uploads[msg.sender];
         require(userData.is_joined, "You must join the event first");
 
-        // Push a new UploadedImage struct into the user's images array
+        
         userData.images.push(UploadedImage({
             url: imageUrl,
             tag: tagValue,
@@ -85,7 +85,7 @@ contract EventSnap {
         }));
     }
 
-    // 4. Delete a specific image by index
+    
     //    Allowed if caller is the global owner, event owner, or the image uploader.
     function deleteImage(uint256 eventId, uint256 imageIndex) public {
         require(eventId > 0 && eventId <= eventCount, "Invalid event ID");
@@ -155,7 +155,7 @@ contract EventSnap {
         return userData.images;
     }
 
-    // 7. OPTIONAL: Get all images from ALL users in a single array
+    
     function getAllEventImages(uint256 eventId) 
         public 
         view 
