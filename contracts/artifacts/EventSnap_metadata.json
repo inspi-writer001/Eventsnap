@@ -1,0 +1,281 @@
+{
+	"compiler": {
+		"version": "0.8.25+commit.b61c2a91"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_banner",
+						"type": "string"
+					}
+				],
+				"name": "createEvent",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "eventId",
+						"type": "uint256"
+					}
+				],
+				"name": "deleteEvent",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "eventId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "imageIndex",
+						"type": "uint256"
+					}
+				],
+				"name": "deleteImage",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "eventCount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "events",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "banner",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "eventId",
+						"type": "uint256"
+					}
+				],
+				"name": "getEvent",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "banner",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "eventOwner",
+						"type": "address"
+					},
+					{
+						"internalType": "address[]",
+						"name": "attendees",
+						"type": "address[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "eventId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "getUserImages",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "eventId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_uploader_selfie",
+						"type": "string"
+					}
+				],
+				"name": "joinEvent",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "eventId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "imageUrl",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "tagValue",
+						"type": "string"
+					}
+				],
+				"name": "uploadImageWithTag",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"createEvent(string,string)": {
+					"details": "Create a new event with a name and banner (e.g. IPFS URL)."
+				},
+				"deleteEvent(uint256)": {
+					"details": "Delete an entire event from storage. Only the global contract owner can do this."
+				},
+				"deleteImage(uint256,uint256)": {
+					"details": "Delete one of your images (and its corresponding tag) by array index.      - Allowed if caller is:         (a) the image uploader themself,         (b) the event owner, or         (c) the global contract owner.      If you'd like event/global owner to delete images from *any* user,       adjust logic to pass in 'targetUser' as a parameter (instead of msg.sender)."
+				},
+				"getEvent(uint256)": {
+					"details": "Get basic details about an event."
+				},
+				"getUserImages(uint256,address)": {
+					"details": "Get all images (and corresponding tags) that a user uploaded for a specific event."
+				},
+				"joinEvent(uint256,string)": {
+					"details": "Join an event, providing a selfie link (e.g., IPFS URL).      Initializes the user's struct, setting up empty arrays for images & tags."
+				},
+				"uploadImageWithTag(uint256,string,string)": {
+					"details": "Upload (add) an image and a tag to an event you've joined.      'imageUrl' usually an IPFS CID or any link.       'tagValue' is the corresponding tag (e.g. \"concert\", \"VIP\", etc.)."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Eventsnap.sol": "EventSnap"
+		},
+		"evmVersion": "cancun",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Eventsnap.sol": {
+			"keccak256": "0xab5be1545b50b0ec1a0f0b11b3a28cac04f085131e8cc67674ebb589af6c126d",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://39394cc8c1fa3f29c843cabd33f81f9b5a63737e09b2a3bfb72fc3c274f01ec1",
+				"dweb:/ipfs/Qmcg63km6s3GF31wsto16zej5NEiLG4qVQoNHrG8cvWPoK"
+			]
+		}
+	},
+	"version": 1
+}
