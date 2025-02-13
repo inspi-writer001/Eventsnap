@@ -6,7 +6,13 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_oracle",
+						"type": "address"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -24,7 +30,13 @@
 					}
 				],
 				"name": "createEvent",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
@@ -84,6 +96,11 @@
 				"outputs": [
 					{
 						"internalType": "string",
+						"name": "uid",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
 						"name": "name",
 						"type": "string"
 					},
@@ -109,8 +126,49 @@
 						"type": "uint256"
 					}
 				],
+				"name": "getAllEventImages",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "url",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "tag",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "uploader",
+								"type": "address"
+							}
+						],
+						"internalType": "struct EventSnap.UploadedImage[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "eventId",
+						"type": "uint256"
+					}
+				],
 				"name": "getEvent",
 				"outputs": [
+					{
+						"internalType": "string",
+						"name": "uid",
+						"type": "string"
+					},
 					{
 						"internalType": "string",
 						"name": "name",
@@ -141,6 +199,25 @@
 						"internalType": "uint256",
 						"name": "eventId",
 						"type": "uint256"
+					}
+				],
+				"name": "getHighlights",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "eventId",
+						"type": "uint256"
 					},
 					{
 						"internalType": "address",
@@ -151,14 +228,26 @@
 				"name": "getUserImages",
 				"outputs": [
 					{
-						"internalType": "string[]",
+						"components": [
+							{
+								"internalType": "string",
+								"name": "url",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "tag",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "uploader",
+								"type": "address"
+							}
+						],
+						"internalType": "struct EventSnap.UploadedImage[]",
 						"name": "",
-						"type": "string[]"
-					},
-					{
-						"internalType": "string[]",
-						"name": "",
-						"type": "string[]"
+						"type": "tuple[]"
 					}
 				],
 				"stateMutability": "view",
@@ -184,6 +273,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "oracle",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "owner",
 				"outputs": [
 					{
@@ -193,6 +295,37 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "eventId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string[]",
+						"name": "highlights",
+						"type": "string[]"
+					}
+				],
+				"name": "setHighlights",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_newOracle",
+						"type": "address"
+					}
+				],
+				"name": "setOracle",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -223,25 +356,37 @@
 			"kind": "dev",
 			"methods": {
 				"createEvent(string,string)": {
-					"details": "Create a new event with a name and banner (e.g. IPFS URL)."
+					"details": "Creates an event, increments the counter, generates a unique UID, and returns the UID."
 				},
 				"deleteEvent(uint256)": {
-					"details": "Delete an entire event from storage. Only the global contract owner can do this."
+					"details": "Deletes an entire event. Only the global contract owner can do this."
 				},
 				"deleteImage(uint256,uint256)": {
-					"details": "Delete one of your images (and its corresponding tag) by array index.      - Allowed if caller is:         (a) the image uploader themself,         (b) the event owner, or         (c) the global contract owner.      If you'd like event/global owner to delete images from *any* user,       adjust logic to pass in 'targetUser' as a parameter (instead of msg.sender)."
+					"details": "Deletes one image (and its tag) from a user's uploads."
+				},
+				"getAllEventImages(uint256)": {
+					"details": "Returns all images (and tags) from all attendees of an event."
 				},
 				"getEvent(uint256)": {
-					"details": "Get basic details about an event."
+					"details": "Returns event details, including its UID."
+				},
+				"getHighlights(uint256)": {
+					"details": "Retrieves the highlight images for an event."
 				},
 				"getUserImages(uint256,address)": {
-					"details": "Get all images (and corresponding tags) that a user uploaded for a specific event."
+					"details": "Returns all images (and tags) a user has uploaded for a specific event."
 				},
 				"joinEvent(uint256,string)": {
-					"details": "Join an event, providing a selfie link (e.g., IPFS URL).      Initializes the user's struct, setting up empty arrays for images & tags."
+					"details": "Allows a user to join an event by providing their selfie."
+				},
+				"setHighlights(uint256,string[])": {
+					"details": "Sets the highlight images for an event. Only the designated oracle can call this."
+				},
+				"setOracle(address)": {
+					"details": "Allows the owner to update the oracle address."
 				},
 				"uploadImageWithTag(uint256,string,string)": {
-					"details": "Upload (add) an image and a tag to an event you've joined.      'imageUrl' usually an IPFS CID or any link.       'tagValue' is the corresponding tag (e.g. \"concert\", \"VIP\", etc.)."
+					"details": "Uploads an image with an associated tag."
 				}
 			},
 			"version": 1
@@ -268,12 +413,52 @@
 		"remappings": []
 	},
 	"sources": {
+		"@openzeppelin/contracts/utils/Panic.sol": {
+			"keccak256": "0xf7fe324703a64fc51702311dc51562d5cb1497734f074e4f483bfb6717572d7a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c6a5ff4f9fd8649b7ee20800b7fa387d3465bd77cf20c2d1068cd5c98e1ed57a",
+				"dweb:/ipfs/QmVSaVJf9FXFhdYEYeCEfjMVHrxDh5qL4CGkxdMWpQCrqG"
+			]
+		},
+		"@openzeppelin/contracts/utils/Strings.sol": {
+			"keccak256": "0x44f87e91783e88415bde66f1a63f6c7f0076f2d511548820407d5c95643ac56c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://13a51bc2b23827744dcf5bad10c69e72528cf015a6fe48c93632cdb2c0eb1251",
+				"dweb:/ipfs/QmZwPA47Yqgje1qtkdEFEja8ntTahMStYzKf5q3JRnaR7d"
+			]
+		},
+		"@openzeppelin/contracts/utils/math/Math.sol": {
+			"keccak256": "0xa00be322d7db5786750ce0ac7e2f5b633ac30a5ed5fa1ced1e74acfc19acecea",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6c84e822f87cbdc4082533b626667b6928715bb2b1e8e7eb96954cebb9e38c8d",
+				"dweb:/ipfs/QmZmy9dgxLTerBAQDuuHqbL6EpgRxddqgv5KmwpXYVbKz1"
+			]
+		},
+		"@openzeppelin/contracts/utils/math/SafeCast.sol": {
+			"keccak256": "0x195533c86d0ef72bcc06456a4f66a9b941f38eb403739b00f21fd7c1abd1ae54",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://b1d578337048cad08c1c03041cca5978eff5428aa130c781b271ad9e5566e1f8",
+				"dweb:/ipfs/QmPFKL2r9CBsMwmUqqdcFPfHZB2qcs9g1HDrPxzWSxomvy"
+			]
+		},
+		"@openzeppelin/contracts/utils/math/SignedMath.sol": {
+			"keccak256": "0xb1970fac7b64e6c09611e6691791e848d5e3fe410fa5899e7df2e0afd77a99e3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://db5fbb3dddd8b7047465b62575d96231ba8a2774d37fb4737fbf23340fabbb03",
+				"dweb:/ipfs/QmVUSvooZKEdEdap619tcJjTLcAuH6QBdZqAzWwnAXZAWJ"
+			]
+		},
 		"contracts/Eventsnap.sol": {
-			"keccak256": "0xab5be1545b50b0ec1a0f0b11b3a28cac04f085131e8cc67674ebb589af6c126d",
+			"keccak256": "0xe65e5bc138402dfda4611eee9095e686fee2562133f597ed3cb0930bdc86f23f",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://39394cc8c1fa3f29c843cabd33f81f9b5a63737e09b2a3bfb72fc3c274f01ec1",
-				"dweb:/ipfs/Qmcg63km6s3GF31wsto16zej5NEiLG4qVQoNHrG8cvWPoK"
+				"bzz-raw://fa89fff49d4f044da3dbe285d9c6471ae3b53e07352007268dc94e1ef2359305",
+				"dweb:/ipfs/QmRK7aPJa6Ek8yZPZoPyBMnqDn6yKuy1eCpXKdCSbA3GWm"
 			]
 		}
 	},
