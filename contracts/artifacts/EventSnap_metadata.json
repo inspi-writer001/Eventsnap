@@ -6,13 +6,7 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "_oracle",
-						"type": "address"
-					}
-				],
+				"inputs": [],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -454,11 +448,11 @@
 			]
 		},
 		"contracts/Eventsnap.sol": {
-			"keccak256": "0xe65e5bc138402dfda4611eee9095e686fee2562133f597ed3cb0930bdc86f23f",
+			"keccak256": "0xc36f41402dbcd8277255dc1c6c2091b322949ea55e85a316508873811b56a4cb",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://fa89fff49d4f044da3dbe285d9c6471ae3b53e07352007268dc94e1ef2359305",
-				"dweb:/ipfs/QmRK7aPJa6Ek8yZPZoPyBMnqDn6yKuy1eCpXKdCSbA3GWm"
+				"bzz-raw://b2732442fe3d21933a0e1ab82a52ed92ad391e6f666f82a170eee70123316714",
+				"dweb:/ipfs/QmegE4wSYPLLESK8K69SVTyZSgiFHS589X7CedFtMcH9B5"
 			]
 		}
 	},

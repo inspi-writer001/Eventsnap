@@ -45,9 +45,9 @@ contract EventSnap {
         _;
     }
 
-    constructor(address _oracle) {
+    constructor() {
         owner = msg.sender;
-        oracle = _oracle;
+        oracle = msg.sender;
     }
 
 
